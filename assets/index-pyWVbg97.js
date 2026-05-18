@@ -302,7 +302,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   font-size: 25px;
   line-height: 140%;
   text-align: center;
-`;function bc({id:e,cardCompany:t,cardNumbers:n,expirationPeriod:r,onDelete:i}){let[a,o]=(0,x.useState)(`idle`),s=a===`loading`;return G(`div`,{css:xc,children:[W(`div`,{css:[Tc,Ec[t??`default`]]}),G(`div`,{css:wc,children:[W(`span`,{css:Dc,children:t}),W(`span`,{css:Oc,children:n.join(` `)}),G(`span`,{css:kc,children:[`유효기간 `,r[0],`/`,r[1]]})]}),W(`button`,{css:[Sc,s?Cc:null],onClick:async()=>{if(window.confirm(`정말로 카드를 삭제하시겠어요?`))try{o(`loading`),await lc(e),i(e),o(`success`)}catch{alert(`카드를 삭제하는 중 문제가 발생했습니다.
+`;function bc({id:e,cardCompany:t,cardNumbers:n,expirationPeriod:r,onDelete:i}){let[a,o]=(0,x.useState)(`idle`),s=a===`loading`;return G(`div`,{css:xc,children:[W(`div`,{css:[Tc,Ec(t)]}),G(`div`,{css:wc,children:[W(`span`,{css:Dc,children:t}),W(`span`,{css:Oc,children:n.join(` `)}),G(`span`,{css:kc,children:[`유효기간 `,r[0],`/`,r[1]]})]}),W(`button`,{css:[Sc,s?Cc:null],onClick:async()=>{if(window.confirm(`정말로 카드를 삭제하시겠어요?`))try{o(`loading`),await lc(e),i(e),o(`success`)}catch{alert(`카드를 삭제하는 중 문제가 발생했습니다.
 잠시 후 다시 시도해 주세요.`),o(`error`)}},children:`x`})]})}var xc=U`
   display: flex;
   align-items: center;
@@ -341,24 +341,10 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   width: 64px;
   height: 40px;
   border-radius: 4px;
-`,Ec={default:U`
+`,Ec=e=>{let t=_s(e);return t?U`
+      background-color: ${as[t]?.backgroundColor};
+    `:U`
     background-color: var(--color-background-card);
-  `,BC카드:U`
-    background-color: var(--color-brand-bc-card);
-  `,신한카드:U`
-    background-color: var(--color-brand-shinhan-card);
-  `,카카오뱅크:U`
-    background-color: var(--color-brand-kakaobank);
-  `,현대카드:U`
-    background-color: var(--color-brand-hyundai-card);
-  `,우리카드:U`
-    background-color: var(--color-brand-woori-card);
-  `,롯데카드:U`
-    background-color: var(--color-brand-lotte-card);
-  `,하나카드:U`
-    background-color: var(--color-brand-hana-card);
-  `,국민카드:U`
-    background-color: var(--color-brand-kb-card);
   `},Dc=U`
   font-weight: 700;
   font-size: 14px;
