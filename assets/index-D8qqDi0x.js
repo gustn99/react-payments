@@ -91,9 +91,12 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   border-radius: 4px;
   box-shadow: 3px 3px 5px 0px var(--color-shadow-card);
   padding: 8px 12px;
-`,Ms=e=>{let t=_s(e);return U`
-    color: ${t?as[t]?.color:`var(--color-text-card)`};
-    background-color: ${t?as[t]?.backgroundColor:`var(--color-background-card)`};
+`,Ms=e=>{let t=_s(e);return t?U`
+      color: ${as[t]?.color};
+      background-color: ${as[t]?.backgroundColor};
+    `:U`
+    color: var(--color-text-card);
+    background-color: var(--color-background-card);
   `},Ns=U`
   display: flex;
   justify-content: space-between;
