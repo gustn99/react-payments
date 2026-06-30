@@ -1,0 +1,71 @@
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+const TYPOGRAPHY = {
+  display1: css`
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 100%;
+    text-align: center;
+  `,
+  title1: css`
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+  `,
+  caption1: css`
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 9.5px;
+    line-height: 100%;
+  `,
+  body1: css`
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+  `,
+  body2: css`
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 14.88px;
+  `,
+  cardPreview: css`
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.16em;
+  `,
+  button1: css`
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 12px;
+  `,
+  button2: css`
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 100%;
+    text-align: center;
+  `,
+} as const;
+
+export type TypographyVariant = keyof typeof TYPOGRAPHY;
+
+interface TextStyleProps {
+  typograph?: TypographyVariant;
+  color?: string;
+}
+
+const Text = styled.span<TextStyleProps>`
+  ${({ typograph = 'body1' }) => TYPOGRAPHY[typograph]}
+  color: ${({ color = 'inherit' }) => color};
+  vertical-align: middle;
+`;
+
+export default Text;
