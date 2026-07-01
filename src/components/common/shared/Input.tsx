@@ -4,7 +4,7 @@ import { TYPOGRAPHY } from '../../../styles/typography.ts';
 
 const Input = styled.input`
   ${TYPOGRAPHY.body2};
-  width: auto;
+  width: 100%;
   padding: 8px;
   border: 1px solid ${COLOR_PALETTE.gray400};
   border-radius: 2px;
