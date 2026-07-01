@@ -1,7 +1,9 @@
+import AddCardPage from './pages/AddCardPage.tsx';
+
 function App() {
   return (
     <>
-      <button>dddddd</button>
+      <AddCardPage />
     </>
   );
 }
