@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { type PropsWithChildren } from 'react';
 import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
+import Flex from '../shared/Flex.tsx';
 import Spacing from '../shared/Spacing.tsx';
 import Text from '../shared/Text.tsx';
 
@@ -12,7 +13,7 @@ type CardInputFieldProps = PropsWithChildren<{
 
 export default function CardInputField({ title, caption, errorText, children }: CardInputFieldProps) {
   return (
-    <Wrapper>
+    <Flex direction="column">
       <Title as="h3" typograph="title1">
         {title}
       </Title>
@@ -30,11 +31,9 @@ export default function CardInputField({ title, caption, errorText, children }: 
       <ErrorText as="div" typograph="caption1" color={COLOR_PALETTE.red}>
         {errorText}
       </ErrorText>
-    </Wrapper>
+    </Flex>
   );
 }
-
-const Wrapper = styled.div``;
 
 const Title = styled(Text)`
   padding-block: 2px;
