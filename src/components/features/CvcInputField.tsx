@@ -1,5 +1,5 @@
 import CardInputField from '../common/entities/CardInputField.tsx';
-import Input from '../common/shared/Input.tsx';
+import NumberInput from '../common/shared/NumberInput.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
@@ -10,7 +10,7 @@ export default function CvcInputField() {
         유효기간
       </Text>
       <Spacing direction="vertical" size={8} />
-      <Input placeholder="123" />
+      <NumberInput placeholder="123" maxLength={3} />
     </CardInputField>
   );
 }

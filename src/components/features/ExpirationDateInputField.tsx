@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import CardInputField from '../common/entities/CardInputField.tsx';
-import Input from '../common/shared/Input.tsx';
+import NumberInput from '../common/shared/NumberInput.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
@@ -13,8 +13,8 @@ export default function ExpirationDateInputField() {
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex>
-          <Input placeholder="MM" />
-          <Input placeholder="YY" />
+          <NumberInput placeholder="MM" maxLength={2} />
+          <NumberInput placeholder="YY" maxLength={2} />
         </Flex>
       </Fieldset>
     </CardInputField>

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import CardInputField from '../common/entities/CardInputField.tsx';
-import Input from '../common/shared/Input.tsx';
+import NumberInput from '../common/shared/NumberInput.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
@@ -13,10 +13,10 @@ export default function CardNumbersInputField() {
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex>
-          <Input placeholder="1234" />
-          <Input placeholder="1234" />
-          <Input placeholder="1234" />
-          <Input placeholder="1234" />
+          <NumberInput placeholder="1234" maxLength={4} />
+          <NumberInput placeholder="1234" maxLength={4} />
+          <NumberInput placeholder="1234" maxLength={4} />
+          <NumberInput placeholder="1234" maxLength={4} />
         </Flex>
       </Fieldset>
     </CardInputField>
