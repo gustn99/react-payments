@@ -4,6 +4,8 @@ import { createContext, useRef, useState } from 'react';
 
 type Values<K extends string> = Record<K, string>;
 type Errors<K extends string> = Record<K, string>;
+type Element = HTMLInputElement | HTMLSelectElement;
+type Refs<K extends string> = Record<K, Element>;
 
 export interface FormContextValue<K extends string> {
   values: Values<K>;
@@ -13,8 +15,8 @@ export interface FormContextValue<K extends string> {
 
 export interface RegisterReturn {
   name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  ref: (refNode: HTMLInputElement | null) => void;
+  onChange: (e: React.ChangeEvent<Element>) => void;
+  ref: (refNode: Element | null) => void;
   value: string;
   error: string;
 }
@@ -28,8 +30,8 @@ export interface FormProviderProps<K extends string> {
 
 export const FormProvider = <K extends string>({ defaultValues, children }: FormProviderProps<K>) => {
   const [values, setValues] = useState<Values<K>>(defaultValues ?? ({} as Values<K>));
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const refs = useRef<Record<string, HTMLInputElement | null>>({});
+  const [errors, setErrors] = useState<Errors<K>>({} as Errors<K>);
+  const refs = useRef<Refs<K>>({} as Refs<K>);
 
   const setFormValue = (name: K, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -40,11 +42,12 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
   };
 
   const register: FormContextValue<K>['register'] = (name, validate) => {
-    const ref = (refNode: HTMLInputElement | null) => {
+    const ref = (refNode: Element | null) => {
+      if (!refNode) return;
       refs.current[name] = refNode;
     };
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (e: React.ChangeEvent<Element>) => {
       const value = e.target.value;
       try {
         validate?.(value, values);
