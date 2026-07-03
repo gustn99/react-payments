@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import useCardForm from '../../hooks/useCardForm.ts';
+import { validateCardNumbers } from '../../lib/validateForm.ts';
 import CardInputField from '../common/entities/CardInputField.tsx';
 import Flex from '../common/shared/Flex.tsx';
 import NumberInput from '../common/shared/NumberInput.tsx';
@@ -9,7 +10,7 @@ import Text from '../common/shared/Text.tsx';
 
 export default function CardNumbersInputField() {
   const { register, errors } = useCardForm();
-  const { ref, onChange } = register('cardNumbers');
+  const { ref, onChange } = register('cardNumbers', validateCardNumbers);
 
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
 
