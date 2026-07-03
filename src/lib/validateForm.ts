@@ -1,11 +1,38 @@
+import { CARD_RULES } from '../constants/cardRules.ts';
+import { getCardBrand } from './getCardBrand.ts';
+
+export const validateCardNumbers = (value: string) => {
+  const cardBrand = getCardBrand(value);
+  const length = CARD_RULES[cardBrand].cardNumbersLength;
+
+  if (!validateLength(value, length)) {
+    throw new Error('카드 번호는 16자리 숫자입니다.');
+  }
+};
+
 export const validateExpirationDateMonth = (value: string) => {
-  if (Number(value) < 1 || Number(value) > 12) {
+  if (!validateRange(Number(value), 1, 12)) {
     throw new Error('월을 올바르게 입력해 주세요.');
   }
 };
 
 export const validateExpirationDateYear = (value: string) => {
-  if (Number(value) < 26 || Number(value) > 31) {
+  const currentYear = new Date().getFullYear();
+
+  if (!validateRange(Number(value), currentYear, currentYear + 5)) {
     throw new Error('년도를 올바르게 입력해 주세요.');
   }
 };
+
+export const validateCvc = (value: string, cardNumbers: string) => {
+  const cardBrand = getCardBrand(cardNumbers);
+  const length = CARD_RULES[cardBrand].cvcLength;
+
+  if (!validateLength(value, length)) {
+    throw new Error('CVC 번호는 3자리 숫자입니다.');
+  }
+};
+
+const validateRange = (value: number, min: number, max: number) => value >= min && value <= max;
+
+const validateLength = (value: string, length: number) => value.length === length;
