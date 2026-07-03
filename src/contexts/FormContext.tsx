@@ -15,7 +15,7 @@ export interface FormContextValue<K extends string> {
 
 export interface RegisterReturn {
   name: string;
-  onChange: (e: React.ChangeEvent<Element>) => void;
+  onChange: (e: React.ChangeEvent<Element> | string) => void;
   ref: (refNode: Element | null) => void;
   value: string;
   error: string;
@@ -47,8 +47,8 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
       refs.current[name] = refNode;
     };
 
-    const onChange = (e: React.ChangeEvent<Element>) => {
-      const value = e.target.value;
+    const onChange = (e: React.ChangeEvent<Element> | string) => {
+      const value = typeof e === 'string' ? e : e.target.value;
       try {
         validate?.(value, values);
         setFormError(name, '');
