@@ -1,55 +1,69 @@
 /* eslint-disable react-refresh/only-export-components */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useRef, useState } from 'react';
 
-export interface FormContextValue {
-  values: Record<string, string>;
-  errors: Record<string, string>;
-  register: (name: string, validate?: (value: string, values: FormContextValue['values']) => void) => RegisterReturn;
+type Values<K extends string> = Record<K, string>;
+type Errors<K extends string> = Record<K, string>;
+
+export interface FormContextValue<K extends string> {
+  values: Values<K>;
+  errors: Errors<K>;
+  register: (name: K, validate?: (value: string, values: Values<K>) => void) => RegisterReturn;
 }
 
-interface RegisterReturn {
+export interface RegisterReturn {
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  ref: (refNode: HTMLInputElement) => void;
+  ref: (refNode: HTMLInputElement | null) => void;
   value: string;
   error: string;
 }
 
-export const FormContext = createContext<FormContextValue | null>(null);
+export const FormContext = createContext<FormContextValue<any> | null>(null);
 
-export const FormProvider = ({ children }: { children: React.ReactNode }) => {
-  const [values, setValues] = useState<Record<string, string>>({});
+export interface FormProviderProps<K extends string> {
+  defaultValues?: Values<K>;
+  children: React.ReactNode;
+}
+
+export const FormProvider = <K extends string>({ defaultValues, children }: FormProviderProps<K>) => {
+  const [values, setValues] = useState<Values<K>>(defaultValues ?? ({} as Values<K>));
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const refs = useRef<Record<string, HTMLInputElement>>({});
+  const refs = useRef<Record<string, HTMLInputElement | null>>({});
 
-  const setFormValue = (name: string, value: string) => {
+  const setFormValue = (name: K, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
-    console.log(refs.current);
-    console.log(errors);
   };
 
-  const setFormError = (name: string, error: string) => {
+  const setFormError = (name: K, error: string) => {
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  const register: FormContextValue['register'] = (name, validate) => {
-    const ref = (refNode: HTMLInputElement) => {
+  const register: FormContextValue<K>['register'] = (name, validate) => {
+    const ref = (refNode: HTMLInputElement | null) => {
       refs.current[name] = refNode;
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
       try {
-        validate?.(e.target.value, values);
+        validate?.(value, values);
         setFormError(name, '');
-        setFormValue(name, e.target.value);
+        setFormValue(name, value);
       } catch (error) {
         setFormError(name, (error as Error).message ?? '알 수 없는 문제가 발생했습니다.');
-        setFormValue(name, e.target.value);
+        setFormValue(name, value);
       }
     };
 
-    return { name, onChange, ref, value: values[name] ?? '', error: errors[name] ?? '' };
+    return {
+      name,
+      onChange,
+      ref,
+      value: values[name] ?? '',
+      error: errors[name] ?? '',
+    };
   };
 
-  return <FormContext.Provider value={{ values: values, errors, register }}>{children}</FormContext.Provider>;
+  return <FormContext.Provider value={{ values, errors, register }}>{children}</FormContext.Provider>;
 };

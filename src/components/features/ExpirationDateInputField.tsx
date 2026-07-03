@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import useForm from '../../hooks/useForm.ts';
+import useCardForm from '../../hooks/useCardForm.ts';
 import { validateExpirationDateMonth, validateExpirationDateYear } from '../../lib/validateForm.ts';
 import CardInputField from '../common/entities/CardInputField.tsx';
 import NumberInput from '../common/shared/NumberInput.tsx';
@@ -7,13 +7,13 @@ import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
 export default function ExpirationDateInputField() {
-  const { register, errors } = useForm();
+  const { register, errors } = useCardForm();
 
   return (
     <CardInputField
       title="카드 유효기간을 입력해 주세요"
       caption="월/년도(MMYY)를 순서대로 입력해 주세요."
-      errorText={errors.expirationDateMonth || errors.expirationDateYear}
+      errorText={errors.expirationMonth || errors.expirationYear}
     >
       <Fieldset>
         <Text as="legend" typograph="body1">
@@ -21,12 +21,8 @@ export default function ExpirationDateInputField() {
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex>
-          <NumberInput
-            placeholder="MM"
-            maxLength={2}
-            {...register('expirationDateMonth', validateExpirationDateMonth)}
-          />
-          <NumberInput placeholder="YY" maxLength={2} {...register('expirationDateYear', validateExpirationDateYear)} />
+          <NumberInput placeholder="MM" maxLength={2} {...register('expirationMonth', validateExpirationDateMonth)} />
+          <NumberInput placeholder="YY" maxLength={2} {...register('expirationYear', validateExpirationDateYear)} />
         </Flex>
       </Fieldset>
     </CardInputField>
