@@ -1,6 +1,6 @@
 import Input from './Input.tsx';
 
-export default function NumberInput(props: React.ComponentProps<'input'>) {
+export default function NumberInput(props: React.ComponentProps<typeof Input>) {
   const sanitizeValue = (value: string) => {
     return value.replace(/\D/g, '');
   };
