@@ -19,6 +19,7 @@ export interface RegisterReturn {
   ref: (refNode: Element | null) => void;
   value: string;
   error: string;
+  isError: boolean;
 }
 
 export const FormContext = createContext<FormContextValue<any> | null>(null);
@@ -65,6 +66,7 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
       ref,
       value: values[name] ?? '',
       error: errors[name] ?? '',
+      isError: Boolean(errors[name]),
     };
   };
 
