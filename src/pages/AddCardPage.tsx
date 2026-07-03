@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Spacing from '../components/common/shared/Spacing.tsx';
+import CardCompanyInputField from '../components/features/CardCompanyInputField.tsx';
 import CardNumbersInputField from '../components/features/CardNumbersInputField.tsx';
 import CvcInputField from '../components/features/CvcInputField.tsx';
 import ExpirationDateInputField from '../components/features/ExpirationDateInputField.tsx';
@@ -16,6 +17,8 @@ export default function AddCardPage() {
           <CvcInputField />
           <Spacing direction="vertical" size={16} />
           <ExpirationDateInputField />
+          <Spacing direction="vertical" size={16} />
+          <CardCompanyInputField />
           <Spacing direction="vertical" size={16} />
           <CardNumbersInputField />
         </Form>
