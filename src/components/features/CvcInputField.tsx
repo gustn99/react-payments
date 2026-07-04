@@ -6,10 +6,12 @@ import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
 export default function CvcInputField() {
-  const { register, errors } = useCardForm();
+  const { register, errors, touched } = useCardForm();
+  const errorText = (touched.cvc && errors.cvc) || '';
+  const isError = Boolean(errorText);
 
   return (
-    <CardInputField title="CVC 번호를 입력해 주세요" errorText={errors.cvc}>
+    <CardInputField title="CVC 번호를 입력해 주세요" errorText={errorText}>
       <Text as="label" typograph="body1">
         CVC
       </Text>
@@ -17,7 +19,8 @@ export default function CvcInputField() {
       <NumberInput
         placeholder="123"
         maxLength={3}
-        {...register('cvc', (value, values) => validateCvc(value, values.cardNumbers))}
+        isError={isError}
+        {...register('cvc', (value, values) => validateCvc(value, values.cardNumbers ?? ''))}
       />
     </CardInputField>
   );

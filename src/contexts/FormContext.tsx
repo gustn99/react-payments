@@ -4,22 +4,23 @@ import { createContext, useRef, useState } from 'react';
 
 type Values<K extends string> = Record<K, string>;
 type Errors<K extends string> = Record<K, string>;
+type Touched<K extends string> = Record<K, boolean>;
 type Element = HTMLInputElement | HTMLSelectElement;
 type Refs<K extends string> = Record<K, Element>;
 
 export interface FormContextValue<K extends string> {
   values: Values<K>;
   errors: Errors<K>;
+  touched: Touched<K>;
   register: (name: K, validate?: (value: string, values: Values<K>) => void) => RegisterReturn;
 }
 
 export interface RegisterReturn {
   name: string;
   onChange: (e: React.ChangeEvent<Element> | string) => void;
+  onBlur: () => void;
   ref: (refNode: Element | null) => void;
   value: string;
-  error: string;
-  isError: boolean;
 }
 
 export const FormContext = createContext<FormContextValue<any> | null>(null);
@@ -30,8 +31,10 @@ export interface FormProviderProps<K extends string> {
 }
 
 export const FormProvider = <K extends string>({ defaultValues, children }: FormProviderProps<K>) => {
+  // TODO:  실제로 아직 값이 없어 undefined인 요소도 string으로 추론되는 문제
   const [values, setValues] = useState<Values<K>>(defaultValues ?? ({} as Values<K>));
   const [errors, setErrors] = useState<Errors<K>>({} as Errors<K>);
+  const [touched, setTouched] = useState<Touched<K>>({} as Touched<K>);
   const refs = useRef<Refs<K>>({} as Refs<K>);
 
   const setFormValue = (name: K, value: string) => {
@@ -42,6 +45,10 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
+  const setFormTouched = (name: K, touched: boolean) => {
+    setTouched((prev) => ({ ...prev, [name]: touched }));
+  };
+
   const register: FormContextValue<K>['register'] = (name, validate) => {
     const ref = (refNode: Element | null) => {
       if (!refNode) return;
@@ -50,25 +57,31 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
 
     const onChange = (e: React.ChangeEvent<Element> | string) => {
       const value = typeof e === 'string' ? e : e.target.value;
+
       try {
         validate?.(value, values);
+        setFormValue(name, value);
         setFormError(name, '');
-        setFormValue(name, value);
       } catch (error) {
-        setFormError(name, (error as Error).message ?? '알 수 없는 문제가 발생했습니다.');
         setFormValue(name, value);
+        setFormError(name, (error as Error).message ?? '알 수 없는 문제가 발생했습니다.');
+      }
+    };
+
+    const onBlur = () => {
+      if (!touched[name]) {
+        setFormTouched(name, true);
       }
     };
 
     return {
       name,
       onChange,
+      onBlur,
       ref,
       value: values[name] ?? '',
-      error: errors[name] ?? '',
-      isError: Boolean(errors[name]),
     };
   };
 
-  return <FormContext.Provider value={{ values, errors, register }}>{children}</FormContext.Provider>;
+  return <FormContext.Provider value={{ values, errors, touched, register }}>{children}</FormContext.Provider>;
 };
