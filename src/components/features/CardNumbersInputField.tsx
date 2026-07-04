@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import useCardForm from '../../hooks/useCardForm.ts';
+import { useMultipleInput } from '../../hooks/useMultipleInput.ts';
 import { validateCardNumbers } from '../../lib/validateForm.ts';
 import CardInputField from '../common/entities/CardInputField.tsx';
 import Flex from '../common/shared/Flex.tsx';
@@ -9,6 +10,8 @@ import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
 export default function CardNumbersInputField() {
+  const { registerInputRef, handleKeyDown, moveToNext } = useMultipleInput();
+
   const { register, errors, touched } = useCardForm();
   const { ref, onChange, ...props } = register('cardNumbers', validateCardNumbers);
   const errorText = (touched.cardNumbers && errors.cardNumbers) || '';
@@ -16,12 +19,16 @@ export default function CardNumbersInputField() {
 
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const newCardNumbers = [...cardNumbers];
     newCardNumbers[index] = e.target.value;
 
     setCardNumbers(newCardNumbers);
     onChange(newCardNumbers.join(''));
+
+    if (newCardNumbers[index].length === e.target.maxLength) {
+      moveToNext(index);
+    }
   };
 
   return (
@@ -38,34 +45,44 @@ export default function CardNumbersInputField() {
         <Flex gap={8}>
           <NumberInput
             {...props}
-            ref={ref}
+            ref={(refNode) => {
+              ref(refNode);
+              registerInputRef(0)(refNode);
+            }}
             isError={isError}
             value={cardNumbers[0]}
-            onChange={(e) => handleChange(e, 0)}
+            onChange={handleChange(0)}
+            onKeyDown={handleKeyDown(0)}
             placeholder="1234"
             maxLength={4}
           />
           <NumberInput
             {...props}
+            ref={registerInputRef(1)}
             isError={isError}
             value={cardNumbers[1]}
-            onChange={(e) => handleChange(e, 1)}
+            onChange={handleChange(1)}
+            onKeyDown={handleKeyDown(1)}
             placeholder="1234"
             maxLength={4}
           />
           <NumberInput
             {...props}
+            ref={registerInputRef(2)}
             isError={isError}
             value={cardNumbers[2]}
-            onChange={(e) => handleChange(e, 2)}
+            onChange={handleChange(2)}
+            onKeyDown={handleKeyDown(2)}
             placeholder="1234"
             maxLength={4}
           />
           <NumberInput
             {...props}
+            ref={registerInputRef(3)}
             isError={isError}
             value={cardNumbers[3]}
-            onChange={(e) => handleChange(e, 3)}
+            onChange={handleChange(3)}
+            onKeyDown={handleKeyDown(3)}
             placeholder="1234"
             maxLength={4}
           />
