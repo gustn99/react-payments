@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
+import useCardForm from '../../hooks/useCardForm.ts';
 import useProgressive from '../../hooks/useProgressive.tsx';
+import CardPreview from '../common/entities/CardPreview.tsx';
 import Button from '../common/shared/Button.tsx';
+import Flex from '../common/shared/Flex.tsx';
 import PositionBottom from '../common/shared/PositionBottom.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import CardCompanyInputField from './CardCompanyInputField.tsx';
@@ -19,10 +22,16 @@ const CARD_FORM_STEPS = {
 } as const;
 
 export default function CardForm() {
+  const { values } = useCardForm();
   const { Progressive, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
 
   return (
     <Form>
+      <Flex justify="center">
+        <CardPreview {...values} />
+      </Flex>
+      <Spacing direction="vertical" size={45} />
+
       <Progressive reverse>
         <Progressive.Step name="cardNumbers">
           <CardNumbersInputField onComplete={() => next('cardNumbers')} />

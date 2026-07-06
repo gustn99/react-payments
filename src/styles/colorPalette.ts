@@ -7,6 +7,7 @@ export const COLOR_PALETTE = {
   gray850: '#333333', // button, display
 
   red: '#FF3D3D',
+  gold: '#DDCD78',
 } as const;
 
 export type ColorPalette = keyof typeof COLOR_PALETTE;
