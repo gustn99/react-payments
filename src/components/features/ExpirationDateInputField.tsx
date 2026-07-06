@@ -7,7 +7,11 @@ import NumberInput from '../common/shared/NumberInput.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
-export default function ExpirationDateInputField() {
+interface ExpirationDateInputFieldProps {
+  onComplete?: () => void;
+}
+
+export default function ExpirationDateInputField({ onComplete }: ExpirationDateInputFieldProps) {
   const { register, errors } = useCardForm();
 
   return (
@@ -23,7 +27,7 @@ export default function ExpirationDateInputField() {
         <Spacing direction="vertical" size={8} />
         <Flex gap={8}>
           <NumberInput placeholder="MM" maxLength={2} {...register('expirationMonth', validateExpirationDateMonth)} />
-          <NumberInput placeholder="YY" maxLength={2} {...register('expirationYear', validateExpirationDateYear)} />
+          <NumberInput placeholder="YY" maxLength={2} {...register('expirationYear', validateExpirationDateYear, onComplete)} />
         </Flex>
       </Fieldset>
     </CardInputField>

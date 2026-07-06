@@ -9,11 +9,15 @@ import NumberInput from '../common/shared/NumberInput.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
-export default function CardNumbersInputField() {
+interface CardNumbersInputFieldProps {
+  onComplete?: () => void;
+}
+
+export default function CardNumbersInputField({ onComplete }: CardNumbersInputFieldProps) {
   const { registerInputRef, handleKeyDown, moveToNext } = useMultipleInput();
 
   const { register, errors, touched } = useCardForm();
-  const { ref, onChange, ...props } = register('cardNumbers', validateCardNumbers);
+  const { ref, onChange, ...props } = register('cardNumbers', validateCardNumbers, onComplete);
   const errorText = (touched.cardNumbers && errors.cardNumbers) || '';
   const isError = Boolean(errorText);
 

@@ -5,7 +5,11 @@ import NumberInput from '../common/shared/NumberInput.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import Text from '../common/shared/Text.tsx';
 
-export default function CvcInputField() {
+interface CvcInputFieldProps {
+  onComplete?: () => void;
+}
+
+export default function CvcInputField({ onComplete }: CvcInputFieldProps) {
   const { register, errors, touched } = useCardForm();
   const errorText = (touched.cvc && errors.cvc) || '';
   const isError = Boolean(errorText);
@@ -20,7 +24,7 @@ export default function CvcInputField() {
         placeholder="123"
         maxLength={3}
         isError={isError}
-        {...register('cvc', (value, values) => validateCvc(value, values.cardNumbers ?? ''))}
+        {...register('cvc', (value, values) => validateCvc(value, values.cardNumbers ?? ''), onComplete)}
       />
     </CardInputField>
   );
