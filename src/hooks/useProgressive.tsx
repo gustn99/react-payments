@@ -22,7 +22,7 @@ export default function useProgressive<T extends string>(steps: Steps<T>, initia
     [step, steps],
   );
 
-  const Progressive = useCallback(({ children, reverse }: { children: React.ReactNode; reverse?: boolean }) => {
+  const ProgressiveRoot = useCallback(({ children, reverse }: { children: React.ReactNode; reverse?: boolean }) => {
     return <ProgressiveContainer reverse={reverse}>{children}</ProgressiveContainer>;
   }, []);
 
@@ -32,6 +32,12 @@ export default function useProgressive<T extends string>(steps: Steps<T>, initia
     },
     [show],
   );
+
+  const Progressive = useMemo(() => {
+    return Object.assign(ProgressiveRoot, {
+      Step,
+    });
+  }, [ProgressiveRoot, Step]);
 
   const prev = useCallback(
     (name: T) => {
@@ -57,7 +63,7 @@ export default function useProgressive<T extends string>(steps: Steps<T>, initia
     [step, steps],
   );
 
-  return useMemo(() => ({ Progressive, Step, prev, next, step, setStep }), [Progressive, Step, prev, next, step]);
+  return useMemo(() => ({ Progressive, prev, next, step, setStep }), [Progressive, prev, next, step]);
 }
 
 const ProgressiveContainer = styled.div<{ reverse?: boolean }>`

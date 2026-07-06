@@ -18,34 +18,34 @@ const CARD_FORM_STEPS: Steps<StepName> = {
 };
 
 export default function CardForm() {
-  const { Progressive, Step, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
+  const { Progressive, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
 
   return (
     <Form>
       <Progressive reverse>
-        <Step name="cardNumbers">
+        <Progressive.Step name="cardNumbers">
           <CardNumbersInputField onComplete={() => next('cardNumbers')} />
-        </Step>
+        </Progressive.Step>
 
-        <Step name="cardCompany">
+        <Progressive.Step name="cardCompany">
           <CardCompanyInputField onComplete={() => next('cardCompany')} />
           <Spacing direction="vertical" size={16} />
-        </Step>
+        </Progressive.Step>
 
-        <Step name="expirationDate">
+        <Progressive.Step name="expirationDate">
           <ExpirationDateInputField onComplete={() => next('expirationDate')} />
           <Spacing direction="vertical" size={16} />
-        </Step>
+        </Progressive.Step>
 
-        <Step name="cvc">
+        <Progressive.Step name="cvc">
           <CvcInputField onComplete={() => next('cvc')} />
           <Spacing direction="vertical" size={16} />
-        </Step>
+        </Progressive.Step>
 
-        <Step name="password">
+        <Progressive.Step name="password">
           <PasswordInputField onComplete={() => next('password')} />
           <Spacing direction="vertical" size={16} />
-        </Step>
+        </Progressive.Step>
       </Progressive>
     </Form>
   );
