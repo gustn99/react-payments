@@ -23,7 +23,7 @@ export default function PasswordInputField({ onComplete }: PasswordInputFieldPro
         type="password"
         placeholder="**"
         maxLength={2}
-        {...register('password', validatePassword, onComplete)}
+        {...register('password', { validate: validatePassword, onSuccess: onComplete })}
       />
     </CardInputField>
   );

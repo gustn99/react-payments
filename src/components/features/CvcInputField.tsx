@@ -24,7 +24,10 @@ export default function CvcInputField({ onComplete }: CvcInputFieldProps) {
         placeholder="123"
         maxLength={3}
         isError={isError}
-        {...register('cvc', (value, values) => validateCvc(value, values.cardNumbers ?? ''), onComplete)}
+        {...register('cvc', {
+          validate: (value, values) => validateCvc(value, values.cardNumbers ?? ''),
+          onSuccess: onComplete,
+        })}
       />
     </CardInputField>
   );

@@ -8,15 +8,16 @@ type Touched<K extends string> = Record<K, boolean>;
 type Element = HTMLInputElement | HTMLSelectElement;
 type Refs<K extends string> = Record<K, Element>;
 
+export interface RegisterOptions<K extends string> {
+  validate?: (value: string, values: Values<K>) => void;
+  onSuccess?: (value: string) => void;
+}
+
 export interface FormContextValue<K extends string> {
   values: Values<K>;
   errors: Errors<K>;
   touched: Touched<K>;
-  register: (
-    name: K,
-    validate?: (value: string, values: Values<K>) => void,
-    onSuccess?: (value: string) => void,
-  ) => RegisterReturn;
+  register: (name: K, options?: RegisterOptions<K>) => RegisterReturn;
 }
 
 export interface RegisterReturn {
@@ -53,7 +54,7 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
     setTouched((prev) => ({ ...prev, [name]: touched }));
   };
 
-  const register: FormContextValue<K>['register'] = (name, validate, onSuccess) => {
+  const register: FormContextValue<K>['register'] = (name, options) => {
     const ref = (refNode: Element | null) => {
       if (!refNode) return;
       refs.current[name] = refNode;
@@ -63,8 +64,8 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
       const value = typeof e === 'string' ? e : e.target.value;
 
       try {
-        validate?.(value, values);
-        onSuccess?.(value);
+        options?.validate?.(value, values);
+        options?.onSuccess?.(value);
         setFormValue(name, value);
         setFormError(name, '');
       } catch (error) {

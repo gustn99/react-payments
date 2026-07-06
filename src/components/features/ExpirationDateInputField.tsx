@@ -26,8 +26,16 @@ export default function ExpirationDateInputField({ onComplete }: ExpirationDateI
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex gap={8}>
-          <NumberInput placeholder="MM" maxLength={2} {...register('expirationMonth', validateExpirationDateMonth)} />
-          <NumberInput placeholder="YY" maxLength={2} {...register('expirationYear', validateExpirationDateYear, onComplete)} />
+          <NumberInput
+            placeholder="MM"
+            maxLength={2}
+            {...register('expirationMonth', { validate: validateExpirationDateMonth })}
+          />
+          <NumberInput
+            placeholder="YY"
+            maxLength={2}
+            {...register('expirationYear', { validate: validateExpirationDateYear, onSuccess: onComplete })}
+          />
         </Flex>
       </Fieldset>
     </CardInputField>

@@ -17,7 +17,7 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
   const { registerInputRef, handleKeyDown, moveToNext } = useMultipleInput();
 
   const { register, errors, touched } = useCardForm();
-  const { ref, onChange, ...props } = register('cardNumbers', validateCardNumbers, onComplete);
+  const { ref, onChange, ...props } = register('cardNumbers', { validate: validateCardNumbers, onSuccess: onComplete });
   const errorText = (touched.cardNumbers && errors.cardNumbers) || '';
   const isError = Boolean(errorText);
 
