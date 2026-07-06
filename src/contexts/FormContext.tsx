@@ -12,7 +12,11 @@ export interface FormContextValue<K extends string> {
   values: Values<K>;
   errors: Errors<K>;
   touched: Touched<K>;
-  register: (name: K, validate?: (value: string, values: Values<K>) => void) => RegisterReturn;
+  register: (
+    name: K,
+    validate?: (value: string, values: Values<K>) => void,
+    onSuccess?: (value: string) => void,
+  ) => RegisterReturn;
 }
 
 export interface RegisterReturn {
@@ -49,7 +53,7 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
     setTouched((prev) => ({ ...prev, [name]: touched }));
   };
 
-  const register: FormContextValue<K>['register'] = (name, validate) => {
+  const register: FormContextValue<K>['register'] = (name, validate, onSuccess) => {
     const ref = (refNode: Element | null) => {
       if (!refNode) return;
       refs.current[name] = refNode;
@@ -60,6 +64,7 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
 
       try {
         validate?.(value, values);
+        onSuccess?.(value);
         setFormValue(name, value);
         setFormError(name, '');
       } catch (error) {
