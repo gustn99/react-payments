@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 export type StepInfo<T> = {
   prev: T | null;
@@ -10,42 +10,54 @@ export type Steps<T extends string> = Record<T, StepInfo<T>>;
 export default function useProgressive<T extends string>(steps: Steps<T>, initialStep: T) {
   const [step, setStep] = useState<T>(initialStep);
 
-  const show = (name: T) => {
-    let current: T | null = step;
-    while (current) {
-      if (current === name) return true;
-      current = steps[current]?.prev || null;
-    }
-    return false;
-  };
+  const show = useCallback(
+    (name: T) => {
+      let current: T | null = step;
+      while (current) {
+        if (current === name) return true;
+        current = steps[current]?.prev || null;
+      }
+      return false;
+    },
+    [step, steps],
+  );
 
-  const Progressive = ({ children, reverse }: { children: React.ReactNode; reverse?: boolean }) => {
+  const Progressive = useCallback(({ children, reverse }: { children: React.ReactNode; reverse?: boolean }) => {
     return <ProgressiveContainer reverse={reverse}>{children}</ProgressiveContainer>;
-  };
+  }, []);
 
-  const Step = ({ children, name }: { children: React.ReactNode; name: T }) => {
-    return show(name) ? <StepContainer>{children}</StepContainer> : null;
-  };
+  const Step = useCallback(
+    ({ children, name }: { children: React.ReactNode; name: T }) => {
+      return show(name) ? <StepContainer>{children}</StepContainer> : null;
+    },
+    [show],
+  );
 
-  const prev = (name: T) => {
-    if (step !== name) return;
+  const prev = useCallback(
+    (name: T) => {
+      if (step !== name) return;
 
-    const prevStep = steps[name]?.prev;
-    if (prevStep) {
-      setStep(prevStep);
-    }
-  };
+      const prevStep = steps[name]?.prev;
+      if (prevStep) {
+        setStep(prevStep);
+      }
+    },
+    [step, steps],
+  );
 
-  const next = (name: T) => {
-    if (step !== name) return;
+  const next = useCallback(
+    (name: T) => {
+      if (step !== name) return;
 
-    const nextStep = steps[name]?.next;
-    if (nextStep) {
-      setStep(nextStep);
-    }
-  };
+      const nextStep = steps[name]?.next;
+      if (nextStep) {
+        setStep(nextStep);
+      }
+    },
+    [step, steps],
+  );
 
-  return { Progressive, Step, prev, next, step, setStep };
+  return useMemo(() => ({ Progressive, Step, prev, next, step, setStep }), [Progressive, Step, prev, next, step]);
 }
 
 const ProgressiveContainer = styled.div<{ reverse?: boolean }>`
