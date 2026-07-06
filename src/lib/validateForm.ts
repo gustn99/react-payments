@@ -17,7 +17,7 @@ export const validateExpirationDateMonth = (value: string) => {
 };
 
 export const validateExpirationDateYear = (value: string) => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear() % 100;
 
   if (!validateRange(Number(value), currentYear, currentYear + 5)) {
     throw new Error('년도를 올바르게 입력해 주세요.');
@@ -30,6 +30,12 @@ export const validateCvc = (value: string, cardNumbers: string) => {
 
   if (!validateLength(value, length)) {
     throw new Error('CVC 번호는 3자리 숫자입니다.');
+  }
+};
+
+export const validatePassword = (value: string) => {
+  if (!validateLength(value, 2)) {
+    throw new Error('비밀번호 앞 2자리를 입력해 주세요.');
   }
 };
 
