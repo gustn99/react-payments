@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
-import useProgressive, { type Steps } from '../../hooks/useProgressive.tsx';
+import useProgressive from '../../hooks/useProgressive.tsx';
+import Button from '../common/shared/Button.tsx';
+import PositionBottom from '../common/shared/PositionBottom.tsx';
 import Spacing from '../common/shared/Spacing.tsx';
 import CardCompanyInputField from './CardCompanyInputField.tsx';
 import CardNumbersInputField from './CardNumbersInputField.tsx';
@@ -7,15 +9,14 @@ import CvcInputField from './CvcInputField.tsx';
 import ExpirationDateInputField from './ExpirationDateInputField.tsx';
 import PasswordInputField from './PasswordInputField.tsx';
 
-type StepName = 'cardNumbers' | 'cardCompany' | 'expirationDate' | 'cvc' | 'password';
-
-const CARD_FORM_STEPS: Steps<StepName> = {
+const CARD_FORM_STEPS = {
   cardNumbers: { prev: null, next: 'cardCompany' },
   cardCompany: { prev: 'cardNumbers', next: 'expirationDate' },
   expirationDate: { prev: 'cardCompany', next: 'cvc' },
   cvc: { prev: 'expirationDate', next: 'password' },
-  password: { prev: 'cvc', next: null },
-};
+  password: { prev: 'cvc', next: 'submit' },
+  submit: { prev: 'password', next: null },
+} as const;
 
 export default function CardForm() {
   const { Progressive, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
@@ -25,6 +26,7 @@ export default function CardForm() {
       <Progressive reverse>
         <Progressive.Step name="cardNumbers">
           <CardNumbersInputField onComplete={() => next('cardNumbers')} />
+          <Spacing direction="vertical" size={80} />
         </Progressive.Step>
 
         <Progressive.Step name="cardCompany">
@@ -45,6 +47,14 @@ export default function CardForm() {
         <Progressive.Step name="password">
           <PasswordInputField onComplete={() => next('password')} />
           <Spacing direction="vertical" size={16} />
+        </Progressive.Step>
+
+        <Progressive.Step name="submit">
+          <PositionBottom>
+            <Button fullWidth size="lg">
+              확인
+            </Button>
+          </PositionBottom>
         </Progressive.Step>
       </Progressive>
     </Form>
