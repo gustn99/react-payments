@@ -1,3 +1,4 @@
+import { CARD_COMPANIES } from '../../constants/cardCompanies.ts';
 import useCardForm from '../../hooks/useCardForm.ts';
 import CardInputField from '../common/entities/CardInputField.tsx';
 import Option from '../common/shared/Option.tsx';
@@ -12,16 +13,17 @@ interface CardCompanyInputFieldProps {
 export default function CardCompanyInputField({ onComplete }: CardCompanyInputFieldProps) {
   const { register } = useCardForm();
   const props = register('cardCompany', { onSuccess: onComplete });
-  const options = ['BC카드', '신한카드', '카카오뱅크', '현대카드', '우리카드', '롯데카드', '하나카드', '국민카드'];
 
   return (
     <CardInputField title="카드사를 선택해 주세요" caption="현재 국내 카드사만 가능합니다.">
-      <Select {...props} value={props.value || PLACEHOLDER} isEmpty={props.value === '' || props.value === PLACEHOLDER}>
-        <Option disabled hidden>
+      <Select {...props} value={props.value || ''} isEmpty={!props.value}>
+        <Option value="" disabled hidden>
           {PLACEHOLDER}
         </Option>
-        {options.map((option) => (
-          <Option key={option}>{option}</Option>
+        {Object.entries(CARD_COMPANIES).map(([key, value]) => (
+          <Option key={key} value={key}>
+            {value}
+          </Option>
         ))}
       </Select>
     </CardInputField>
