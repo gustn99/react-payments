@@ -20,9 +20,9 @@ export default function CardCompanyInputField({ onComplete }: CardCompanyInputFi
         <Option value="" disabled hidden>
           {PLACEHOLDER}
         </Option>
-        {Object.entries(CARD_COMPANIES).map(([key, value]) => (
+        {Object.entries(CARD_COMPANIES).map(([key, company]) => (
           <Option key={key} value={key}>
-            {value}
+            {company.name}
           </Option>
         ))}
       </Select>
