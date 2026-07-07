@@ -22,7 +22,7 @@ export default function CardPreview({
   cardCompany,
 }: CardPreviewProps) {
   const cardNumbers = chunkString(cardNumbersString, 4);
-  const cardBrand = getCardBrand(cardNumbersString ?? '');
+  const cardBrand = getCardBrand(cardNumbersString);
 
   return (
     <Container direction="column" justify="center" cardCompany={cardCompany}>

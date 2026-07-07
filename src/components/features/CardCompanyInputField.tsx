@@ -16,7 +16,7 @@ export default function CardCompanyInputField({ onComplete }: CardCompanyInputFi
 
   return (
     <CardInputField title="카드사를 선택해 주세요" caption="현재 국내 카드사만 가능합니다.">
-      <Select {...props} value={props.value || ''} isEmpty={!props.value}>
+      <Select {...props} value={props.value} isEmpty={!props.value}>
         <Option value="" disabled hidden>
           {PLACEHOLDER}
         </Option>

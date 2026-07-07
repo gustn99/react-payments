@@ -25,10 +25,17 @@ export default function CardForm() {
   const { values } = useCardForm();
   const { Progressive, value, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
 
+  const { cardNumbers, cardCompany, expirationMonth, expirationYear } = values;
+
   return (
     <Form>
       <Flex justify="center">
-        <CardPreview {...values} />
+        <CardPreview
+          cardNumbers={cardNumbers ?? ''}
+          cardCompany={cardCompany ?? ''}
+          expirationMonth={expirationMonth ?? ''}
+          expirationYear={expirationYear ?? ''}
+        />
       </Flex>
       <Spacing direction="vertical" size={45} />
 

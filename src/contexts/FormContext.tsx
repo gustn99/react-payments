@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useRef, useState } from 'react';
 
-type Values<K extends string> = Record<K, string>;
-type Errors<K extends string> = Record<K, string>;
-type Touched<K extends string> = Record<K, boolean>;
+type Values<K extends string> = Record<K, string | undefined>;
+type Errors<K extends string> = Record<K, string | undefined>;
+type Touched<K extends string> = Record<K, boolean | undefined>;
 type Element = HTMLInputElement | HTMLSelectElement;
-type Refs<K extends string> = Record<K, Element>;
+type Refs<K extends string> = Record<K, Element | undefined>;
 
 export interface RegisterOptions<K extends string> {
   validate?: (value: string, values: Values<K>) => void;
@@ -36,7 +36,6 @@ export interface FormProviderProps<K extends string> {
 }
 
 export const FormProvider = <K extends string>({ defaultValues, children }: FormProviderProps<K>) => {
-  // TODO:  실제로 아직 값이 없어 undefined인 요소도 string으로 추론되는 문제
   const [values, setValues] = useState<Values<K>>(defaultValues ?? ({} as Values<K>));
   const [errors, setErrors] = useState<Errors<K>>({} as Errors<K>);
   const [touched, setTouched] = useState<Touched<K>>({} as Touched<K>);
