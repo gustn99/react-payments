@@ -23,7 +23,7 @@ const CARD_FORM_STEPS = {
 
 export default function CardForm() {
   const { values } = useCardForm();
-  const { Progressive, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
+  const { Progressive, value, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
 
   return (
     <Form>
@@ -32,7 +32,7 @@ export default function CardForm() {
       </Flex>
       <Spacing direction="vertical" size={45} />
 
-      <Progressive reverse>
+      <Progressive value={value} reverse>
         <Progressive.Step name="cardNumbers">
           <CardNumbersInputField onComplete={() => next('cardNumbers')} />
           <Spacing direction="vertical" size={80} />

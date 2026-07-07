@@ -1,43 +1,46 @@
-import styled from '@emotion/styled';
+/* eslint-disable react-refresh/only-export-components */
 import React, { useCallback, useMemo, useState } from 'react';
+import Flex from '../components/common/shared/Flex.tsx';
+import type { ProgressiveContextType, Steps } from '../contexts/ProgressiveContext';
+import { ProgressiveProvider } from '../contexts/ProgressiveContext';
+import { useProgressiveContext } from './useProgressiveContext';
 
-export type StepInfo<T> = {
-  prev: T | null;
-  next: T | null;
-};
-export type Steps<T extends string> = Record<T, StepInfo<T>>;
+export type { StepInfo, Steps } from '../contexts/ProgressiveContext';
+
+function Step<T extends string>({ children, name }: { children: React.ReactNode; name: T }) {
+  const { step, steps } = useProgressiveContext<T>();
+
+  const show = useMemo(() => {
+    let current: T | null = step;
+    while (current) {
+      if (current === name) return true;
+      current = steps[current]?.prev || null;
+    }
+    return false;
+  }, [step, steps, name]);
+
+  return show ? <Flex direction="column">{children}</Flex> : null;
+}
+
+function Progressive<T extends string>({
+  value,
+  children,
+  reverse,
+}: {
+  value: ProgressiveContextType<T>;
+  children: React.ReactNode;
+  reverse?: boolean;
+}) {
+  return (
+    <ProgressiveProvider value={value}>
+      <Flex direction={reverse ? 'column-reverse' : 'column'}>{children}</Flex>
+    </ProgressiveProvider>
+  );
+}
+Progressive.Step = Step;
 
 export default function useProgressive<T extends string>(steps: Steps<T>, initialStep: T) {
   const [step, setStep] = useState<T>(initialStep);
-
-  const show = useCallback(
-    (name: T) => {
-      let current: T | null = step;
-      while (current) {
-        if (current === name) return true;
-        current = steps[current]?.prev || null;
-      }
-      return false;
-    },
-    [step, steps],
-  );
-
-  const ProgressiveRoot = useCallback(({ children, reverse }: { children: React.ReactNode; reverse?: boolean }) => {
-    return <ProgressiveContainer reverse={reverse}>{children}</ProgressiveContainer>;
-  }, []);
-
-  const Step = useCallback(
-    ({ children, name }: { children: React.ReactNode; name: T }) => {
-      return show(name) ? <StepContainer>{children}</StepContainer> : null;
-    },
-    [show],
-  );
-
-  const Progressive = useMemo(() => {
-    return Object.assign(ProgressiveRoot, {
-      Step,
-    });
-  }, [ProgressiveRoot, Step]);
 
   const prev = useCallback(
     (name: T) => {
@@ -63,15 +66,7 @@ export default function useProgressive<T extends string>(steps: Steps<T>, initia
     [step, steps],
   );
 
-  return useMemo(() => ({ Progressive, prev, next, step, setStep }), [Progressive, prev, next, step]);
+  const value = useMemo(() => ({ step, steps }), [step, steps]);
+
+  return useMemo(() => ({ Progressive, value, prev, next, step, setStep }), [value, prev, next, step]);
 }
-
-const ProgressiveContainer = styled.div<{ reverse?: boolean }>`
-  display: flex;
-  flex-direction: ${({ reverse }) => (reverse ? 'column-reverse' : 'column')};
-`;
-
-const StepContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
