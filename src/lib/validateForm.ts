@@ -11,7 +11,7 @@ export const validateCardNumbers = (value: string) => {
 };
 
 export const validateExpirationDateMonth = (value: string) => {
-  if (!validateRange(Number(value), 1, 12)) {
+  if (!validateRange(Number(value), 1, 12) || !validateLength(value, 2)) {
     throw new Error('월을 올바르게 입력해 주세요.');
   }
 };
