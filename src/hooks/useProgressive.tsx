@@ -44,26 +44,16 @@ export default function useProgressive<T extends string>(steps: Steps<T>, initia
 
   const prev = useCallback(
     (name: T) => {
-      if (step !== name) return;
-
-      const prevStep = steps[name]?.prev;
-      if (prevStep) {
-        setStep(prevStep);
-      }
+      setStep((current) => (current === name ? (steps[name]?.prev ?? current) : current));
     },
-    [step, steps],
+    [steps],
   );
 
   const next = useCallback(
     (name: T) => {
-      if (step !== name) return;
-
-      const nextStep = steps[name]?.next;
-      if (nextStep) {
-        setStep(nextStep);
-      }
+      setStep((current) => (current === name ? (steps[name]?.next ?? current) : current));
     },
-    [step, steps],
+    [steps],
   );
 
   const value = useMemo(() => ({ step, steps }), [step, steps]);
