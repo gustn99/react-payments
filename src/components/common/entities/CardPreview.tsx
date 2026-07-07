@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CARD_COMPANIES, type CardCompany } from '../../../constants/cardCompanies.ts';
 import { chunkString } from '../../../lib/chunkString.ts';
 import { getCardBrand } from '../../../lib/getCardBrand.ts';
 import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
@@ -10,18 +11,20 @@ interface CardPreviewProps {
   cardNumbers: string;
   expirationMonth: string;
   expirationYear: string;
+  cardCompany: string;
 }
 
 export default function CardPreview({
   cardNumbers: cardNumbersString,
   expirationMonth,
   expirationYear,
+  cardCompany,
 }: CardPreviewProps) {
   const cardNumbers = chunkString(cardNumbersString, 4);
   const cardBrand = getCardBrand(cardNumbersString ?? '');
 
   return (
-    <Container direction="column" justify="center">
+    <Container direction="column" justify="center" cardCompany={cardCompany}>
       <CardGraphicWrapper justify="space-between">
         <IC />
         {cardBrand !== 'Local' && <CardBrandLabel></CardBrandLabel>}
@@ -48,13 +51,13 @@ export default function CardPreview({
   );
 }
 
-const Container = styled(Flex)`
+const Container = styled(Flex)<{ cardCompany: string }>`
   position: relative;
   width: 212px;
   height: 132px;
   padding: 8px 14px;
   border-radius: 4px;
-  background-color: ${COLOR_PALETTE.gray850};
+  background-color: ${({ cardCompany = '' }) => CARD_COMPANIES[cardCompany as CardCompany]?.color || COLOR_PALETTE.gray850};
 `;
 
 const CardGraphicWrapper = styled(Flex)`
