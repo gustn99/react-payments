@@ -6,6 +6,7 @@ import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
 import Flex from '../shared/Flex';
 import Spacing from '../shared/Spacing.tsx';
 import Text from '../shared/Text.tsx';
+import CardBrandLogo from './CardBrandLogo.tsx';
 
 interface CardPreviewProps {
   cardNumbers: string;
@@ -27,7 +28,7 @@ export default function CardPreview({
     <Container direction="column" justify="center" cardCompany={cardCompany}>
       <CardGraphicWrapper justify="space-between">
         <IC />
-        {cardBrand !== 'Local' && <CardBrandLabel></CardBrandLabel>}
+        <CardBrandLogo cardBrand={cardBrand} />
       </CardGraphicWrapper>
 
       <CardNumbersWrapper gap={10}>
@@ -72,14 +73,6 @@ const IC = styled.div`
   height: 22px;
   border-radius: 4px;
   background-color: ${COLOR_PALETTE.gold};
-`;
-
-const CardBrandLabel = styled.div`
-  width: 36px;
-  height: 22px;
-  border: 1px solid ${COLOR_PALETTE.gray400};
-  border-radius: 4px;
-  background-color: ${COLOR_PALETTE.white};
 `;
 
 const CardNumbersWrapper = styled(Flex)`

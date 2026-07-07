@@ -1,4 +1,4 @@
-export type CardBrand = 'Visa' | 'MasterCard' | 'Diners' | 'AMEX' | 'UnionPay' | 'Local';
+export type CardBrand = 'Visa' | 'MasterCard' | 'Diners' | 'Amex' | 'UnionPay' | 'Local';
 
 export const getCardBrand = (cardNumber: string): CardBrand => {
   const cleanNumber = cardNumber.replace(/\D/g, '');
@@ -16,7 +16,7 @@ export const getCardBrand = (cardNumber: string): CardBrand => {
   }
 
   if (/^3[47]/.test(cleanNumber)) {
-    return 'AMEX';
+    return 'Amex';
   }
 
   const prefix6 = parseInt(cleanNumber.slice(0, 6), 10);
