@@ -18,7 +18,7 @@ export const CARD_RULES: Record<CardBrand, CardRules> = {
     cardNumbersLength: 14,
     cvcLength: 3,
   },
-  AMEX: {
+  Amex: {
     cardNumbersLength: 15,
     cvcLength: 4,
   },
