@@ -6,7 +6,7 @@ export const validateCardNumbers = (value: string) => {
   const length = CARD_RULES[cardBrand].cardNumbersLength;
 
   if (!validateLength(value, length)) {
-    throw new Error('카드 번호는 16자리 숫자입니다.');
+    throw new Error(`카드 번호는 ${length}자리 숫자입니다.`);
   }
 };
 
@@ -29,7 +29,7 @@ export const validateCvc = (value: string, cardNumbers: string) => {
   const length = CARD_RULES[cardBrand].cvcLength;
 
   if (!validateLength(value, length)) {
-    throw new Error('CVC 번호는 3자리 숫자입니다.');
+    throw new Error(`CVC 번호는 ${length}자리 숫자입니다.`);
   }
 };
 
