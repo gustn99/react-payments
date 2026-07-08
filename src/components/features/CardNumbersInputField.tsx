@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { CARD_RULES } from '../../constants/cardRules.ts';
 import useCardForm from '../../hooks/useCardForm.ts';
 import { useMultipleInput } from '../../hooks/useMultipleInput.ts';
+import { getCardBrand } from '../../lib/getCardBrand.ts';
 import { validateCardNumbers } from '../../lib/validateForm.ts';
 import CardInputField from '../common/entities/CardInputField.tsx';
 import Flex from '../common/shared/Flex.tsx';
@@ -16,12 +18,14 @@ interface CardNumbersInputFieldProps {
 export default function CardNumbersInputField({ onComplete }: CardNumbersInputFieldProps) {
   const { registerInputRef, handleKeyDown, moveToNext } = useMultipleInput();
 
-  const { register, errors, touched } = useCardForm();
+  const { register, values, errors, touched } = useCardForm();
   const { ref, onChange, ...props } = register('cardNumbers', { validate: validateCardNumbers, onSuccess: onComplete });
   const errorText = (touched.cardNumbers && errors.cardNumbers) || '';
   const isError = Boolean(errorText);
 
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
+  const cardBrand = getCardBrand(values.cardNumbers ?? '');
+  const maxLength = CARD_RULES[cardBrand].maxLength;
 
   const handleChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const newCardNumbers = [...cardNumbers];
@@ -58,7 +62,7 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
             onChange={handleChange(0)}
             onKeyDown={handleKeyDown(0)}
             placeholder="1234"
-            maxLength={4}
+            maxLength={maxLength[0]}
           />
           <NumberInput
             {...props}
@@ -68,7 +72,7 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
             onChange={handleChange(1)}
             onKeyDown={handleKeyDown(1)}
             placeholder="1234"
-            maxLength={4}
+            maxLength={maxLength[1]}
           />
           <NumberInput
             {...props}
@@ -78,7 +82,7 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
             onChange={handleChange(2)}
             onKeyDown={handleKeyDown(2)}
             placeholder="1234"
-            maxLength={4}
+            maxLength={maxLength[2]}
           />
           <NumberInput
             {...props}
@@ -88,7 +92,7 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
             onChange={handleChange(3)}
             onKeyDown={handleKeyDown(3)}
             placeholder="1234"
-            maxLength={4}
+            maxLength={maxLength[3]}
           />
         </Flex>
       </Fieldset>
