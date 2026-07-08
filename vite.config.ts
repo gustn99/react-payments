@@ -1,8 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import { BASE_URL } from './src/constants/baseUrl.ts';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/react-payments/',
+  base: `${BASE_URL}/`,
   plugins: [react()],
-})
+});

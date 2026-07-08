@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import AddCardPage from './pages/AddCardPage.tsx';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BASE_URL } from './constants/baseUrl.ts';
 import AddCardCompletePage from './pages/AddCardCompletePage.tsx';
+import AddCardPage from './pages/AddCardPage.tsx';
 
 function App() {
   return (
-    <BrowserRouter basename="/react-payments">
+    <BrowserRouter basename={BASE_URL}>
       <Routes>
         <Route path="/" element={<Navigate to="/card/add" replace />} />
         <Route path="/card/add" element={<AddCardPage />} />
