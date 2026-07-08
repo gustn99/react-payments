@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import type { CardCompany } from '../../constants/cardCompanies.ts';
+import useAddCardCompleteNavigate from '../../hooks/useAddCardCompleteNavigate.ts';
 import useCardForm from '../../hooks/useCardForm.ts';
 import useProgressive from '../../hooks/useProgressive.tsx';
 import CardPreview from '../common/entities/CardPreview.tsx';
@@ -27,8 +29,15 @@ export default function CardForm() {
 
   const { cardNumbers, cardCompany, expirationMonth, expirationYear } = values;
 
+  const { navigate } = useAddCardCompleteNavigate();
+
+  const handleSubmit = (e: React.SubmitEvent) => {
+    e.preventDefault();
+    navigate({ cardNumberPrefix: cardNumbers?.slice(0, 4) ?? '', cardCompany: (cardCompany as CardCompany) ?? '' });
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Flex justify="center">
         <CardPreview
           cardNumbers={cardNumbers ?? ''}
