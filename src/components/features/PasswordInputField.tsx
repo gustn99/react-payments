@@ -20,6 +20,7 @@ export default function PasswordInputField({ onComplete }: PasswordInputFieldPro
       </Text>
       <Spacing direction="vertical" size={8} />
       <NumberInput
+        autoFocus
         type="password"
         placeholder="**"
         maxLength={2}

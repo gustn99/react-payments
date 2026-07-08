@@ -53,6 +53,7 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
         <Flex gap={8}>
           <NumberInput
             {...props}
+            autoFocus
             ref={(refNode) => {
               ref(refNode);
               registerInputRef(0)(refNode);

@@ -21,6 +21,7 @@ export default function CvcInputField({ onComplete }: CvcInputFieldProps) {
       </Text>
       <Spacing direction="vertical" size={8} />
       <NumberInput
+        autoFocus
         placeholder="123"
         maxLength={3}
         isError={isError}

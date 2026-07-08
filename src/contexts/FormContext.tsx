@@ -17,6 +17,7 @@ export interface FormContextValue<K extends string> {
   values: Values<K>;
   errors: Errors<K>;
   touched: Touched<K>;
+  refs: React.RefObject<Refs<K>>;
   register: (name: K, options?: RegisterOptions<K>) => RegisterReturn;
 }
 
@@ -88,5 +89,5 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
     };
   };
 
-  return <FormContext.Provider value={{ values, errors, touched, register }}>{children}</FormContext.Provider>;
+  return <FormContext.Provider value={{ values, errors, touched, refs, register }}>{children}</FormContext.Provider>;
 };

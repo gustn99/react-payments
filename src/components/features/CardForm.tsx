@@ -67,7 +67,7 @@ export default function CardForm() {
 
         <Progressive.Step name="submit">
           <PositionBottom>
-            <Button fullWidth size="lg">
+            <Button autoFocus fullWidth size="lg">
               확인
             </Button>
           </PositionBottom>
