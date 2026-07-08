@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { BASE_URL } from '../../../constants/baseUrl.ts';
 import { CARD_COMPANIES, type CardCompany } from '../../../constants/cardCompanies.ts';
 import { chunkString } from '../../../lib/chunkString.ts';
 import { getCardBrand } from '../../../lib/getCardBrand.ts';
@@ -83,7 +84,7 @@ const MaskedCardNumbers = ({ length }: { length: number }) => {
   return (
     <Flex gap={5}>
       {Array.from({ length: length }).map((_, i) => (
-        <Mask key={i} src="/mask.svg" alt="mask" />
+        <Mask key={i} src={`${BASE_URL}/mask.svg`} alt="mask" />
       ))}
     </Flex>
   );

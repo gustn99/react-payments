@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { BASE_URL } from '../../../constants/baseUrl.ts';
 import type { CardBrand } from '../../../lib/getCardBrand.ts';
 import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
 import Flex from '../shared/Flex.tsx';
@@ -13,7 +14,7 @@ export default function CardBrandLogo({ cardBrand = 'Local' }: CardBrandLogoProp
   if (cardBrand === 'Local') return null;
   return (
     <Wrapper cardBrand={cardBrand} justify="center" align="center">
-      <Logo src={`/${cardBrand.toLowerCase()}.svg`} alt={`${cardBrand} logo`} />
+      <Logo src={`${BASE_URL}/${cardBrand.toLowerCase()}.svg`} alt={`${cardBrand} logo`} />
     </Wrapper>
   );
 }
