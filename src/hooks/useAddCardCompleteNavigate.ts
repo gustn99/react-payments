@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../App.tsx';
 import type { CardCompany } from '../constants/cardCompanies.ts';
 
 interface AddCardCompleteState {
@@ -19,7 +20,7 @@ export default function useAddCardCompleteNavigate() {
   const loc = useLocation();
   const { state } = loc;
 
-  const navigate = (state: AddCardCompleteState) => nav('/card/add/complete', { replace: true, state });
+  const navigate = (state: AddCardCompleteState) => nav(ROUTES.addCardComplete, { replace: true, state });
   const getState = () => {
     if (isAddCardCompleteState(state)) {
       return state;
