@@ -15,6 +15,11 @@ const Button = styled.button<ButtonProps>`
   ${({ rounded = false }) => rounded && `border-radius: 5px;`}
   background-color: ${COLOR_PALETTE.gray850};
   color: ${COLOR_PALETTE.white};
+
+  :disabled {
+    pointer-events: none;
+    background-color: ${COLOR_PALETTE.gray400};
+  }
 `;
 
 const sizeMap = {

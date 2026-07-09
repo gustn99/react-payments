@@ -24,7 +24,7 @@ const CARD_FORM_STEPS = {
 } as const;
 
 export default function CardForm() {
-  const { values } = useCardForm();
+  const { isFormValid, values } = useCardForm();
   const { Progressive, value, next } = useProgressive(CARD_FORM_STEPS, 'cardNumbers');
 
   const { cardNumbers, cardCompany, expirationMonth, expirationYear } = values;
@@ -76,7 +76,7 @@ export default function CardForm() {
 
         <Progressive.Step name="submit">
           <PositionBottom>
-            <Button autoFocus fullWidth size="lg">
+            <Button autoFocus fullWidth size="lg" disabled={!isFormValid}>
               확인
             </Button>
           </PositionBottom>

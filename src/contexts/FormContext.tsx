@@ -14,11 +14,13 @@ export interface RegisterOptions<K extends string> {
 }
 
 export interface FormContextValue<K extends string> {
+  isFormValid: boolean;
   values: Values<K>;
   errors: Errors<K>;
   touched: Touched<K>;
   refs: React.RefObject<Refs<K>>;
   register: (name: K, options?: RegisterOptions<K>) => RegisterReturn;
+  setFieldError: (name: K, errorMessage: string) => void;
 }
 
 export interface RegisterReturn {
@@ -42,15 +44,17 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
   const [touched, setTouched] = useState<Touched<K>>({} as Touched<K>);
   const refs = useRef<Refs<K>>({} as Refs<K>);
 
-  const setFormValue = (name: K, value: string) => {
+  const isFormValid = Object.values(errors).every((error) => error === '');
+
+  const setFieldValue = (name: K, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const setFormError = (name: K, error: string) => {
+  const setFieldError = (name: K, error: string) => {
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  const setFormTouched = (name: K, touched: boolean) => {
+  const setFieldTouched = (name: K, touched: boolean) => {
     setTouched((prev) => ({ ...prev, [name]: touched }));
   };
 
@@ -66,17 +70,17 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
       try {
         options?.validate?.(value, values);
         options?.onSuccess?.(value);
-        setFormValue(name, value);
-        setFormError(name, '');
+        setFieldValue(name, value);
+        setFieldError(name, '');
       } catch (error) {
-        setFormValue(name, value);
-        setFormError(name, (error as Error).message ?? '알 수 없는 문제가 발생했습니다.');
+        setFieldValue(name, value);
+        setFieldError(name, (error as Error).message ?? '알 수 없는 문제가 발생했습니다.');
       }
     };
 
     const onBlur = () => {
       if (!touched[name]) {
-        setFormTouched(name, true);
+        setFieldTouched(name, true);
       }
     };
 
@@ -89,5 +93,9 @@ export const FormProvider = <K extends string>({ defaultValues, children }: Form
     };
   };
 
-  return <FormContext.Provider value={{ values, errors, touched, refs, register }}>{children}</FormContext.Provider>;
+  return (
+    <FormContext.Provider value={{ isFormValid, values, errors, touched, refs, register, setFieldError }}>
+      {children}
+    </FormContext.Provider>
+  );
 };
