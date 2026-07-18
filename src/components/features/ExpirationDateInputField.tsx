@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
 import useCardForm from '../../hooks/useCardForm.ts';
 import { useMultipleInput } from '../../hooks/useMultipleInput.ts';
 import { validateExpirationDateMonth, validateExpirationDateYear } from '../../lib/validateForm.ts';
@@ -16,7 +15,7 @@ interface ExpirationDateInputFieldProps {
 export default function ExpirationDateInputField({ onComplete }: ExpirationDateInputFieldProps) {
   const { registerInputRef, handleKeyDown, moveToNext } = useMultipleInput();
 
-  const { register, errors, refs } = useCardForm();
+  const { register, errors } = useCardForm();
 
   const {
     ref: monthRef,
@@ -44,14 +43,6 @@ export default function ExpirationDateInputField({ onComplete }: ExpirationDateI
       moveToNext(1);
     }
   };
-
-  // select close로 인한 autoFocus 무효화로 수동 focus 로직 작성
-  useEffect(() => {
-    setTimeout(() => {
-      if (!refs.current.expirationMonth) return;
-      refs.current.expirationMonth.focus();
-    }, 0);
-  }, [refs]);
 
   return (
     <CardInputField
