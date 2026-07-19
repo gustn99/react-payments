@@ -53,3 +53,5 @@ export const TYPOGRAPHY = {
     text-align: center;
   `,
 } as const;
+
+export type TypographyVariant = keyof typeof TYPOGRAPHY;
