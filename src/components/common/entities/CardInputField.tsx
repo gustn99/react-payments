@@ -17,7 +17,7 @@ export default function CardInputField({ title, caption, errorText, children }: 
       <Title as="h3" typograph="title1">
         {title}
       </Title>
-      {caption && (
+      {caption !== '' && (
         <>
           <Spacing direction="vertical" size={4} />
           <Text typograph="caption1" color={COLOR_PALETTE.gray400}>

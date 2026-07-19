@@ -1,13 +1,13 @@
-import styled from '@emotion/styled';
+import CardBrandLogo from '@/components/common/entities/CardBrandLogo.tsx';
+import Flex from '@/components/common/shared/Flex';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import Text from '@/components/common/shared/Text.tsx';
 import { BASE_URL } from '@/constants/baseUrl.ts';
 import { CARD_COMPANIES, type CardCompany } from '@/constants/cardCompanies.ts';
 import { chunkString } from '@/lib/chunkString.ts';
 import { getCardBrand } from '@/lib/getCardBrand.ts';
 import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
-import Flex from '@/components/common/shared/Flex';
-import Spacing from '@/components/common/shared/Spacing.tsx';
-import Text from '@/components/common/shared/Text.tsx';
-import CardBrandLogo from '@/components/common/entities/CardBrandLogo.tsx';
+import styled from '@emotion/styled';
 
 interface CardPreviewProps {
   cardNumbers: string;
@@ -46,7 +46,7 @@ export default function CardPreview({
 
       <Text typograph="cardPreview" color={COLOR_PALETTE.white} width={50}>
         {expirationMonth}
-        {expirationYear && '/'}
+        {expirationYear !== '' && '/'}
         {expirationYear}
       </Text>
     </Container>
