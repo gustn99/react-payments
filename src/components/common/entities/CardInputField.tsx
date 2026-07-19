@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { type PropsWithChildren } from 'react';
-import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
-import Flex from '../shared/Flex.tsx';
-import Spacing from '../shared/Spacing.tsx';
-import Text from '../shared/Text.tsx';
+import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
+import Flex from '@/components/common/shared/Flex.tsx';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import Text from '@/components/common/shared/Text.tsx';
 
 type CardInputFieldProps = PropsWithChildren<{
   title: string;

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
+import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
 
 interface SelectProps {
   isEmpty?: boolean;

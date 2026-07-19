@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { TYPOGRAPHY } from '../../../styles/typography.ts';
+import { TYPOGRAPHY } from '@/styles/typography.ts';
 
 export type TypographyVariant = keyof typeof TYPOGRAPHY;
 

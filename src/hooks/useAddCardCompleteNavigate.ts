@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from '../App.tsx';
-import type { CardCompany } from '../constants/cardCompanies.ts';
+import { ROUTES } from '@/App.tsx';
+import type { CardCompany } from '@/constants/cardCompanies.ts';
 
 interface AddCardCompleteState {
   cardNumberPrefix: string;

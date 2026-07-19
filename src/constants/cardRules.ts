@@ -1,4 +1,4 @@
-import type { CardBrand } from '../lib/getCardBrand.ts';
+import type { CardBrand } from '@/lib/getCardBrand.ts';
 
 interface CardRules {
   cardNumbersLength: number;

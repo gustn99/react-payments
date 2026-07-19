@@ -1,9 +1,9 @@
-import useCardForm from '../../hooks/useCardForm.ts';
-import { validateCvc } from '../../lib/validateForm.ts';
-import CardInputField from '../common/entities/CardInputField.tsx';
-import NumberInput from '../common/shared/NumberInput.tsx';
-import Spacing from '../common/shared/Spacing.tsx';
-import Text from '../common/shared/Text.tsx';
+import useCardForm from '@/hooks/useCardForm.ts';
+import { validateCvc } from '@/lib/validateForm.ts';
+import CardInputField from '@/components/common/entities/CardInputField.tsx';
+import NumberInput from '@/components/common/shared/NumberInput.tsx';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import Text from '@/components/common/shared/Text.tsx';
 
 interface CvcInputFieldProps {
   onComplete?: () => void;

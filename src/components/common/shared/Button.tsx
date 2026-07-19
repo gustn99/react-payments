@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
-import { TYPOGRAPHY } from '../../../styles/typography.ts';
+import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
+import { TYPOGRAPHY } from '@/styles/typography.ts';
 
 interface ButtonProps {
   size?: 'lg' | 'md';

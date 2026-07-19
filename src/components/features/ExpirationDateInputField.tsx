@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import useCardForm from '../../hooks/useCardForm.ts';
-import { useMultipleInput } from '../../hooks/useMultipleInput.ts';
-import { validateExpirationDateMonth, validateExpirationDateYear } from '../../lib/validateForm.ts';
-import CardInputField from '../common/entities/CardInputField.tsx';
-import Flex from '../common/shared/Flex.tsx';
-import NumberInput from '../common/shared/NumberInput.tsx';
-import Spacing from '../common/shared/Spacing.tsx';
-import Text from '../common/shared/Text.tsx';
+import useCardForm from '@/hooks/useCardForm.ts';
+import { useMultipleInput } from '@/hooks/useMultipleInput.ts';
+import { validateExpirationDateMonth, validateExpirationDateYear } from '@/lib/validateForm.ts';
+import CardInputField from '@/components/common/entities/CardInputField.tsx';
+import Flex from '@/components/common/shared/Flex.tsx';
+import NumberInput from '@/components/common/shared/NumberInput.tsx';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import Text from '@/components/common/shared/Text.tsx';
 
 interface ExpirationDateInputFieldProps {
   onComplete?: () => void;

@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
-import type { CardCompany } from '../../constants/cardCompanies.ts';
-import useAddCardCompleteNavigate from '../../hooks/useAddCardCompleteNavigate.ts';
-import useCardForm from '../../hooks/useCardForm.ts';
-import useProgressive from '../../hooks/useProgressive.tsx';
-import CardPreview from '../common/entities/CardPreview.tsx';
-import Button from '../common/shared/Button.tsx';
-import Flex from '../common/shared/Flex.tsx';
-import PositionBottom from '../common/shared/PositionBottom.tsx';
-import Spacing from '../common/shared/Spacing.tsx';
-import CardCompanyInputField from './CardCompanyInputField.tsx';
-import CardNumbersInputField from './CardNumbersInputField.tsx';
-import CvcInputField from './CvcInputField.tsx';
-import ExpirationDateInputField from './ExpirationDateInputField.tsx';
-import PasswordInputField from './PasswordInputField.tsx';
+import type { CardCompany } from '@/constants/cardCompanies.ts';
+import useAddCardCompleteNavigate from '@/hooks/useAddCardCompleteNavigate.ts';
+import useCardForm from '@/hooks/useCardForm.ts';
+import useProgressive from '@/hooks/useProgressive.tsx';
+import CardPreview from '@/components/common/entities/CardPreview.tsx';
+import Button from '@/components/common/shared/Button.tsx';
+import Flex from '@/components/common/shared/Flex.tsx';
+import PositionBottom from '@/components/common/shared/PositionBottom.tsx';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import CardCompanyInputField from '@/components/features/CardCompanyInputField.tsx';
+import CardNumbersInputField from '@/components/features/CardNumbersInputField.tsx';
+import CvcInputField from '@/components/features/CvcInputField.tsx';
+import ExpirationDateInputField from '@/components/features/ExpirationDateInputField.tsx';
+import PasswordInputField from '@/components/features/PasswordInputField.tsx';
 
 const CARD_FORM_STEPS = {
   cardNumbers: { prev: null, next: 'cardCompany' },

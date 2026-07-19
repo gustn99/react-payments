@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ProgressiveContext, type ProgressiveContextType } from '../contexts/ProgressiveContext';
+import { ProgressiveContext, type ProgressiveContextType } from '@/contexts/ProgressiveContext';
 
 export function useProgressiveContext<T extends string>() {
   const context = useContext(ProgressiveContext);

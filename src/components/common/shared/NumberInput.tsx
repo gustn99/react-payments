@@ -1,4 +1,4 @@
-import Input from './Input.tsx';
+import Input from '@/components/common/shared/Input.tsx';
 
 export default function NumberInput(props: React.ComponentProps<typeof Input>) {
   const sanitizeValue = (value: string) => {

@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { CARD_RULES } from '../../constants/cardRules.ts';
-import useCardForm from '../../hooks/useCardForm.ts';
-import { useMultipleInput } from '../../hooks/useMultipleInput.ts';
-import { getCardBrand } from '../../lib/getCardBrand.ts';
-import { validateCardNumbers } from '../../lib/validateForm.ts';
-import CardInputField from '../common/entities/CardInputField.tsx';
-import Flex from '../common/shared/Flex.tsx';
-import NumberInput from '../common/shared/NumberInput.tsx';
-import Spacing from '../common/shared/Spacing.tsx';
-import Text from '../common/shared/Text.tsx';
+import { CARD_RULES } from '@/constants/cardRules.ts';
+import useCardForm from '@/hooks/useCardForm.ts';
+import { useMultipleInput } from '@/hooks/useMultipleInput.ts';
+import { getCardBrand } from '@/lib/getCardBrand.ts';
+import { validateCardNumbers } from '@/lib/validateForm.ts';
+import CardInputField from '@/components/common/entities/CardInputField.tsx';
+import Flex from '@/components/common/shared/Flex.tsx';
+import NumberInput from '@/components/common/shared/NumberInput.tsx';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import Text from '@/components/common/shared/Text.tsx';
 
 interface CardNumbersInputFieldProps {
   onComplete?: () => void;

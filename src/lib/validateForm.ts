@@ -1,5 +1,5 @@
-import { CARD_RULES } from '../constants/cardRules.ts';
-import { getCardBrand } from './getCardBrand.ts';
+import { CARD_RULES } from '@/constants/cardRules.ts';
+import { getCardBrand } from '@/lib/getCardBrand.ts';
 
 export const validateCardNumbers = (value: string) => {
   const cardBrand = getCardBrand(value);

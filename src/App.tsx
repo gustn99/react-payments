@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { BASE_URL } from './constants/baseUrl.ts';
-import AddCardCompletePage from './pages/AddCardCompletePage.tsx';
-import AddCardPage from './pages/AddCardPage.tsx';
+import { BASE_URL } from '@/constants/baseUrl.ts';
+import AddCardCompletePage from '@/pages/AddCardCompletePage.tsx';
+import AddCardPage from '@/pages/AddCardPage.tsx';
 
 export const ROUTES = {
   root: '/',

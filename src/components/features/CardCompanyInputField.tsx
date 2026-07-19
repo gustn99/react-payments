@@ -1,8 +1,8 @@
-import { CARD_COMPANIES } from '../../constants/cardCompanies.ts';
-import useCardForm from '../../hooks/useCardForm.ts';
-import CardInputField from '../common/entities/CardInputField.tsx';
-import Option from '../common/shared/Option.tsx';
-import Select from '../common/shared/Select.tsx';
+import { CARD_COMPANIES } from '@/constants/cardCompanies.ts';
+import useCardForm from '@/hooks/useCardForm.ts';
+import CardInputField from '@/components/common/entities/CardInputField.tsx';
+import Option from '@/components/common/shared/Option.tsx';
+import Select from '@/components/common/shared/Select.tsx';
 
 const PLACEHOLDER = '카드사를 선택해주세요';
 

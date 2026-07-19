@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { BASE_URL } from '../../../constants/baseUrl.ts';
-import type { CardBrand } from '../../../lib/getCardBrand.ts';
-import { COLOR_PALETTE } from '../../../styles/colorPalette.ts';
-import Flex from '../shared/Flex.tsx';
+import { BASE_URL } from '@/constants/baseUrl.ts';
+import type { CardBrand } from '@/lib/getCardBrand.ts';
+import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
+import Flex from '@/components/common/shared/Flex.tsx';
 
 interface CardBrandLogoProps {
   cardBrand: CardBrand;

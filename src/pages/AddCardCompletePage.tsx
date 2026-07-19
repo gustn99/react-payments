@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import complete from '../../public/complete.svg';
-import Button from '../components/common/shared/Button.tsx';
-import Flex from '../components/common/shared/Flex.tsx';
-import Spacing from '../components/common/shared/Spacing.tsx';
-import Text from '../components/common/shared/Text.tsx';
-import { CARD_COMPANIES } from '../constants/cardCompanies.ts';
-import useAddCardCompleteNavigate from '../hooks/useAddCardCompleteNavigate.ts';
+import Button from '@/components/common/shared/Button.tsx';
+import Flex from '@/components/common/shared/Flex.tsx';
+import Spacing from '@/components/common/shared/Spacing.tsx';
+import Text from '@/components/common/shared/Text.tsx';
+import { CARD_COMPANIES } from '@/constants/cardCompanies.ts';
+import useAddCardCompleteNavigate from '@/hooks/useAddCardCompleteNavigate.ts';
 
 export default function AddCardCompletePage() {
   const { getState } = useAddCardCompleteNavigate();

@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { useCallback, useMemo, useState } from 'react';
-import Flex from '../components/common/shared/Flex.tsx';
-import type { ProgressiveContextType, Steps } from '../contexts/ProgressiveContext';
-import { ProgressiveProvider } from '../contexts/ProgressiveContext';
-import { useProgressiveContext } from './useProgressiveContext';
+import Flex from '@/components/common/shared/Flex.tsx';
+import type { ProgressiveContextType, Steps } from '@/contexts/ProgressiveContext';
+import { ProgressiveProvider } from '@/contexts/ProgressiveContext';
+import { useProgressiveContext } from '@/hooks/useProgressiveContext';
 
-export type { StepInfo, Steps } from '../contexts/ProgressiveContext';
+export type { StepInfo, Steps } from '@/contexts/ProgressiveContext';
 
 function Step<T extends string>({ children, name }: { children: React.ReactNode; name: T }) {
   const { step, steps } = useProgressiveContext<T>();
