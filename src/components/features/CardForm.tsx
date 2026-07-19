@@ -1,18 +1,18 @@
-import styled from '@emotion/styled';
-import type { CardCompany } from '@/constants/cardCompanies.ts';
-import useAddCardCompleteNavigate from '@/hooks/useAddCardCompleteNavigate.ts';
-import useCardForm from '@/hooks/useCardForm.ts';
-import useProgressive from '@/hooks/useProgressive.tsx';
 import CardPreview from '@/components/common/entities/CardPreview.tsx';
 import Button from '@/components/common/shared/Button.tsx';
+import FixedBottom from '@/components/common/shared/FixedBottom.tsx';
 import Flex from '@/components/common/shared/Flex.tsx';
-import PositionBottom from '@/components/common/shared/PositionBottom.tsx';
 import Spacing from '@/components/common/shared/Spacing.tsx';
 import CardCompanyInputField from '@/components/features/CardCompanyInputField.tsx';
 import CardNumbersInputField from '@/components/features/CardNumbersInputField.tsx';
 import CvcInputField from '@/components/features/CvcInputField.tsx';
 import ExpirationDateInputField from '@/components/features/ExpirationDateInputField.tsx';
 import PasswordInputField from '@/components/features/PasswordInputField.tsx';
+import type { CardCompany } from '@/constants/cardCompanies.ts';
+import useAddCardCompleteNavigate from '@/hooks/useAddCardCompleteNavigate.ts';
+import useCardForm from '@/hooks/useCardForm.ts';
+import useProgressive from '@/hooks/useProgressive.tsx';
+import styled from '@emotion/styled';
 
 const CARD_FORM_STEPS = {
   cardNumbers: { prev: null, next: 'cardCompany' },
@@ -75,11 +75,11 @@ export default function CardForm() {
         </Progressive.Step>
 
         <Progressive.Step name="submit">
-          <PositionBottom>
+          <FixedBottom>
             <Button autoFocus fullWidth size="lg" disabled={!isFormValid}>
               확인
             </Button>
-          </PositionBottom>
+          </FixedBottom>
         </Progressive.Step>
       </Progressive>
     </Form>
