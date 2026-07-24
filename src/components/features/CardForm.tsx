@@ -40,10 +40,10 @@ export default function CardForm() {
     <Form onSubmit={handleSubmit}>
       <Flex justify="center">
         <CardPreview
-          cardNumbers={cardNumbers ?? ''}
-          cardCompany={cardCompany ?? ''}
-          expirationMonth={expirationMonth ?? ''}
-          expirationYear={expirationYear ?? ''}
+          cardNumbers={cardNumbers}
+          cardCompany={cardCompany as CardCompany}
+          expirationMonth={expirationMonth}
+          expirationYear={expirationYear}
         />
       </Flex>
       <Spacing direction="vertical" size={45} />

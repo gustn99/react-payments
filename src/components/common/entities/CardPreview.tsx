@@ -10,10 +10,10 @@ import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
 import styled from '@emotion/styled';
 
 interface CardPreviewProps {
-  cardNumbers: string;
-  expirationMonth: string;
-  expirationYear: string;
-  cardCompany: string;
+  cardNumbers?: string;
+  expirationMonth?: string;
+  expirationYear?: string;
+  cardCompany?: CardCompany;
 }
 
 export default function CardPreview({
@@ -22,8 +22,8 @@ export default function CardPreview({
   expirationYear,
   cardCompany,
 }: CardPreviewProps) {
-  const cardNumbers = chunkString(cardNumbersString, 4);
-  const cardBrand = getCardBrand(cardNumbersString);
+  const cardNumbers = chunkString(cardNumbersString ?? '', 4);
+  const cardBrand = getCardBrand(cardNumbersString ?? '');
 
   return (
     <Container direction="column" justify="center" cardCompany={cardCompany}>
@@ -53,13 +53,13 @@ export default function CardPreview({
   );
 }
 
-const Container = styled(Flex)<{ cardCompany: string }>`
+const Container = styled(Flex)<{ cardCompany?: CardCompany }>`
   position: relative;
   width: 212px;
   height: 132px;
   padding: 8px 14px;
   border-radius: 4px;
-  background-color: ${({ cardCompany = '' }) => CARD_COMPANIES[cardCompany as CardCompany]?.color || COLOR_PALETTE.gray850};
+  background-color: ${({ cardCompany }) => (cardCompany ? CARD_COMPANIES[cardCompany].color : COLOR_PALETTE.gray850)};
 `;
 
 const CardGraphicWrapper = styled(Flex)`
