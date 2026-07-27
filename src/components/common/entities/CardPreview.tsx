@@ -3,9 +3,10 @@ import Flex from '@/components/common/shared/Flex';
 import Spacing from '@/components/common/shared/Spacing.tsx';
 import Text from '@/components/common/shared/Text.tsx';
 import { BASE_URL } from '@/constants/baseUrl.ts';
-import { CARD_COMPANIES, type CardCompany } from '@/constants/cardCompanies.ts';
+import { type CardCompany } from '@/constants/cardCompanies.ts';
 import { chunkString } from '@/lib/chunkString.ts';
 import { getCardBrand } from '@/lib/getCardBrand.ts';
+import { getCardCompanyColor } from '@/lib/getCardCompanyColor.ts';
 import { COLOR_PALETTE } from '@/styles/colorPalette.ts';
 import styled from '@emotion/styled';
 
@@ -25,8 +26,10 @@ export default function CardPreview({
   const cardNumbers = chunkString(cardNumbersString ?? '', 4);
   const cardBrand = getCardBrand(cardNumbersString ?? '');
 
+  const backgroundColor = getCardCompanyColor(cardCompany);
+
   return (
-    <Container direction="column" justify="center" cardCompany={cardCompany}>
+    <Container direction="column" justify="center" backgroundColor={backgroundColor}>
       <CardGraphicWrapper justify="space-between">
         <IC />
         <CardBrandLogo cardBrand={cardBrand} />
@@ -53,13 +56,13 @@ export default function CardPreview({
   );
 }
 
-const Container = styled(Flex)<{ cardCompany?: CardCompany }>`
+const Container = styled(Flex)<{ backgroundColor: string }>`
   position: relative;
   width: 212px;
   height: 132px;
   padding: 8px 14px;
   border-radius: 4px;
-  background-color: ${({ cardCompany }) => (cardCompany ? CARD_COMPANIES[cardCompany].color : COLOR_PALETTE.gray850)};
+  background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 const CardGraphicWrapper = styled(Flex)`
