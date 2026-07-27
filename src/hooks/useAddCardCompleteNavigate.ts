@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/App.tsx';
-import type { CardCompany } from '@/constants/cardCompanies.ts';
+import { type CardCompany, isCardCompany } from '@/constants/cardCompanies.ts';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AddCardCompleteState {
   cardNumberPrefix: string;
@@ -12,7 +12,7 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> => {
 };
 
 const isAddCardCompleteState = (state: unknown): state is AddCardCompleteState => {
-  return isPlainObject(state) && typeof state.cardNumberPrefix === 'string' && typeof state.cardCompany === 'string';
+  return isPlainObject(state) && typeof state.cardNumberPrefix === 'string' && isCardCompany(state.cardCompany);
 };
 
 export default function useAddCardCompleteNavigate() {

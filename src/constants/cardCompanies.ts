@@ -10,3 +10,7 @@ export const CARD_COMPANIES = {
 } as const;
 
 export type CardCompany = keyof typeof CARD_COMPANIES;
+
+export const isCardCompany = (cardCompany: unknown): cardCompany is CardCompany => {
+  return typeof cardCompany === 'string' && Object.keys(CARD_COMPANIES).includes(cardCompany);
+};
