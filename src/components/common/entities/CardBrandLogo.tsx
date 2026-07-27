@@ -14,7 +14,7 @@ export default function CardBrandLogo({ cardBrand = 'Local' }: CardBrandLogoProp
   if (cardBrand === 'Local') return null;
   return (
     <Wrapper padding={paddingMap[cardBrand]} justify="center" align="center">
-      <Logo src={`${BASE_URL}/${cardBrand.toLowerCase()}.svg`} alt={`${cardBrand} logo`} />
+      <Logo src={`${BASE_URL}/${cardBrand.toLowerCase()}.svg`} alt={`${cardBrand} 로고`} />
     </Wrapper>
   );
 }
