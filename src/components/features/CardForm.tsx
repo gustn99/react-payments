@@ -33,7 +33,16 @@ export default function CardForm() {
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
-    navigate({ cardNumberPrefix: cardNumbers?.slice(0, 4) ?? '', cardCompany: (cardCompany as CardCompany) ?? '' });
+
+    const cardNumberPrefix = cardNumbers?.slice(0, 4);
+
+    if (!cardNumberPrefix || !cardCompany) {
+      window.alert('폼 형식이 올바르지 않습니다.');
+      return;
+    }
+
+    // TODO: CardCompany 타입 단언 제거
+    navigate({ cardNumberPrefix, cardCompany: cardCompany as CardCompany });
   };
 
   return (
