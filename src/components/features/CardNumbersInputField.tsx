@@ -1,15 +1,15 @@
-import styled from '@emotion/styled';
-import { useState } from 'react';
-import { CARD_RULES } from '@/constants/cardRules.ts';
-import useCardForm from '@/hooks/useCardForm.ts';
-import { useMultipleInput } from '@/hooks/useMultipleInput.ts';
-import { getCardBrand } from '@/lib/getCardBrand.ts';
-import { validateCardNumbers } from '@/lib/validateForm.ts';
 import CardInputField from '@/components/common/entities/CardInputField.tsx';
 import Flex from '@/components/common/shared/Flex.tsx';
 import NumberInput from '@/components/common/shared/NumberInput.tsx';
 import Spacing from '@/components/common/shared/Spacing.tsx';
 import Text from '@/components/common/shared/Text.tsx';
+import { CARD_RULES } from '@/constants/cardRules.ts';
+import useCardForm from '@/hooks/useCardForm.ts';
+import { useMultipleInput } from '@/hooks/useMultipleInput.ts';
+import { getCardBrand } from '@/lib/getCardBrand.ts';
+import { validateCardNumbers } from '@/lib/validateForm.ts';
+import styled from '@emotion/styled';
+import { useState } from 'react';
 
 interface CardNumbersInputFieldProps {
   onComplete?: () => void;
@@ -51,50 +51,22 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex gap={8}>
-          <NumberInput
-            {...props}
-            autoFocus
-            ref={(refNode) => {
-              ref(refNode);
-              registerInputRef(0)(refNode);
-            }}
-            isError={isError}
-            value={cardNumbers[0]}
-            onChange={handleChange(0)}
-            onKeyDown={handleKeyDown(0)}
-            placeholder="1234"
-            maxLength={maxLength[0]}
-          />
-          <NumberInput
-            {...props}
-            ref={registerInputRef(1)}
-            isError={isError}
-            value={cardNumbers[1]}
-            onChange={handleChange(1)}
-            onKeyDown={handleKeyDown(1)}
-            placeholder="1234"
-            maxLength={maxLength[1]}
-          />
-          <NumberInput
-            {...props}
-            ref={registerInputRef(2)}
-            isError={isError}
-            value={cardNumbers[2]}
-            onChange={handleChange(2)}
-            onKeyDown={handleKeyDown(2)}
-            placeholder="1234"
-            maxLength={maxLength[2]}
-          />
-          <NumberInput
-            {...props}
-            ref={registerInputRef(3)}
-            isError={isError}
-            value={cardNumbers[3]}
-            onChange={handleChange(3)}
-            onKeyDown={handleKeyDown(3)}
-            placeholder="1234"
-            maxLength={maxLength[3]}
-          />
+          {[0, 1, 2, 3].map((i) => (
+            <NumberInput
+              {...props}
+              autoFocus={i === 0}
+              ref={(refNode) => {
+                registerInputRef(i)(refNode);
+                if (i === 0) ref(refNode);
+              }}
+              isError={isError}
+              value={cardNumbers[i]}
+              onChange={handleChange(i)}
+              onKeyDown={handleKeyDown(i)}
+              placeholder="1234"
+              maxLength={maxLength[i]}
+            />
+          ))}
         </Flex>
       </Fieldset>
     </CardInputField>
