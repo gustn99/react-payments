@@ -20,11 +20,12 @@ export default function CvcInputField({ onComplete }: CvcInputFieldProps) {
 
   return (
     <CardInputField title="CVC 번호를 입력해 주세요" errorText={errorText}>
-      <Text as="label" typograph="body1">
+      <Text as="label" htmlFor="cvc" typograph="body1">
         CVC
       </Text>
       <Spacing direction="vertical" size={8} />
       <NumberInput
+        id="cvc"
         autoFocus
         placeholder="123"
         maxLength={CARD_RULES[cardBrand].cvcLength}

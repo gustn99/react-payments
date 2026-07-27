@@ -46,13 +46,16 @@ export default function CardNumbersInputField({ onComplete }: CardNumbersInputFi
       errorText={errorText}
     >
       <Fieldset>
-        <Text as="legend" typograph="body1">
+        <Text as="legend" id="card-numbers" typograph="body1">
           카드 번호
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex gap={8}>
           {[0, 1, 2, 3].map((i) => (
             <NumberInput
+              key={i}
+              id={`card-number-${i}`}
+              aria-labelledby="card-numbers"
               {...props}
               autoFocus={i === 0}
               ref={(refNode) => {

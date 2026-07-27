@@ -51,13 +51,15 @@ export default function ExpirationDateInputField({ onComplete }: ExpirationDateI
       errorText={errors.expirationMonth || errors.expirationYear}
     >
       <Fieldset>
-        <Text as="legend" typograph="body1">
+        <Text as="legend" id="expiration-date" typograph="body1">
           유효기간
         </Text>
         <Spacing direction="vertical" size={8} />
         <Flex gap={8}>
           <NumberInput
             {...monthProps}
+            id="expiration-month"
+            aria-labelledby="expiration-date"
             ref={(refNode) => {
               monthRef(refNode);
               registerInputRef(0)(refNode);
@@ -69,6 +71,8 @@ export default function ExpirationDateInputField({ onComplete }: ExpirationDateI
           />
           <NumberInput
             {...yearProps}
+            id="expiration-year"
+            aria-labelledby="expiration-date"
             ref={(refNode) => {
               yearRef(refNode);
               registerInputRef(1)(refNode);
